@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -279,29 +278,85 @@
         }
         .reveal-blur.active { opacity: 1; filter: blur(0); transform: translateY(0); }
 
-        /* NAV LINKS NEON */
+
+        /* =========================================
+           MODIFICAÇÃO 1: Botões do Menu 
+           Fundos redondos removidos, links de texto limpo 
+           com linha forte de neon brilhante abaixo.
+           ========================================= */
         .nav-neon-link {
-            padding: 8px 18px; border-radius: 9999px; border: 1px solid rgba(0,240,255,0.35);
-            color: #00f0ff; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.02em;
-            background: rgba(0,240,255,0.05); white-space: nowrap;
-            box-shadow: 0 0 10px rgba(0,240,255,0.15), inset 0 0 10px rgba(0,240,255,0.04);
+            padding: 4px 2px;
+            border-radius: 0; 
+            border: none;
+            color: #ffffff; 
+            font-weight: 600; 
+            font-size: 0.85rem; 
+            letter-spacing: 0.02em;
+            background: transparent; 
+            white-space: nowrap;
+            position: relative;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+        .nav-neon-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #00f0ff;
+            box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
             transition: all 0.3s ease;
         }
         .nav-neon-link:hover {
-            background: rgba(0,240,255,0.15); color: #ffffff; transform: translateY(-1px);
-            box-shadow: 0 0 20px rgba(0,240,255,0.45), inset 0 0 14px rgba(0,240,255,0.1);
+            background: transparent; 
+            color: #00f0ff; 
+            transform: translateY(-1px);
+            box-shadow: none;
         }
+        .nav-neon-link:hover::after {
+            height: 3px;
+            box-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff;
+        }
+
         .nav-neon-portfolio {
-            padding: 8px 22px; border-radius: 9999px; border: 1px solid rgba(255,0,170,0.55);
-            color: #ffffff; font-weight: 800; font-size: 0.82rem; letter-spacing: 0.03em; white-space: nowrap;
-            background: linear-gradient(90deg, rgba(191,0,255,0.35), rgba(255,0,170,0.35));
-            box-shadow: 0 0 20px rgba(191,0,255,0.55), 0 0 34px rgba(255,0,170,0.3);
+            padding: 4px 2px; 
+            border-radius: 0; 
+            border: none;
+            color: #ffffff; 
+            font-weight: 800; 
+            font-size: 0.85rem; 
+            letter-spacing: 0.03em; 
+            white-space: nowrap;
+            background: transparent;
+            position: relative;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+        .nav-neon-portfolio::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ff00aa;
+            box-shadow: 0 0 10px #ff00aa, 0 0 20px #bf00ff;
             transition: all 0.3s ease;
         }
         .nav-neon-portfolio:hover {
             transform: translateY(-1px) scale(1.05);
-            box-shadow: 0 0 28px rgba(191,0,255,0.85), 0 0 50px rgba(255,0,170,0.55);
+            color: #ff00aa;
+            box-shadow: none;
         }
+        .nav-neon-portfolio:hover::after {
+            height: 3px;
+            box-shadow: 0 0 15px #ff00aa, 0 0 30px #bf00ff;
+        }
+        /* =========================================
+           FIM DA MODIFICAÇÃO 1
+           ========================================= */
 
         /* WHATSAPP FLOATING BUTTON */
         .wa-float-btn {
@@ -1366,22 +1421,25 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Voltar para Home
             </button>
 
-            <div class="text-center mb-20 relative">
+            <!-- MODIFICAÇÃO 2: Espaçamento reduzido drasticamente alterando o margin-bottom (de mb-20 para mb-8) -->
+            <div class="text-center mb-8 relative">
                 <div class="qs-neon-line" style="top: 50%; left: 0; width: 15%; position: absolute; animation-delay: 0s;"></div>
                 <div class="qs-neon-line" style="top: 50%; right: 0; width: 15%; position: absolute; animation-delay: 1s;"></div>
                 <span class="text-neon-cyan text-xs font-bold tracking-[0.5em] uppercase mb-4 block">Trabalhos Selecionados</span>
                 <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 qs-title-3d">Nosso Portfólio</h1>
                 <div class="w-32 h-px mx-auto bg-gradient-to-r from-transparent via-neon-cyan to-transparent mb-8" style="box-shadow: 0 0 20px var(--neon-cyan);"></div>
-                <p class="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed mb-12">Cada projeto é uma arquitetura de comunicação única — onde criatividade, tecnologia e estratégia se encontram para gerar impacto real.</p>
+                
+                <!-- MODIFICAÇÃO 2: Margem inferior reduzida (mb-12 alterado para mb-4) para aproximar o carrossel do texto -->
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed mb-4">Cada projeto é uma arquitetura de comunicação única — onde criatividade, tecnologia e estratégia se encontram para gerar impacto real.</p>
             </div>
 
             <!-- CARROSSEL CRISTISON -->
-            <div class="mt-24 pt-16 border-t border-white/5">
-                <div class="text-center mb-16">
-                    <span class="text-xs font-bold tracking-[0.5em] uppercase mb-4 block" style="color: var(--neon-purple);">Cristison Portfólio</span>
-                    <h2 class="font-display text-3xl md:text-5xl font-bold text-white mb-4">Artes, Vídeos & Muito Mais</h2>
-                    <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">Explore todos os projetos criados — desde artes digitais e propagandas até chatbots, cardápios, logotipos e muito mais.</p>
-                </div>
+            <!-- MODIFICAÇÃO 2: Classes de espaçamento "mt-24 pt-16" alteradas para "mt-4 pt-4" para encurtar o buraco visual -->
+            <div class="mt-4 pt-4 border-t border-white/5">
+                
+                <!-- MODIFICAÇÃO 3: Os textos ("Cristison Portfólio / Artes, Vídeos & Muito Mais...") foram apagados aqui, 
+                     removendo totalmente a antiga <div> que os continha, conforme solicitado -->
+
                 <div id="cristison-sections-container"></div>
             </div>
 
