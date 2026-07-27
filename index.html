@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -280,12 +281,12 @@
 
 
         /* =========================================
-           MODIFICAÇÃO 1: Botões do Menu 
-           Fundos redondos removidos, links de texto limpo 
-           com linha forte de neon brilhante abaixo.
+           ATUALIZAÇÃO: Botões do Menu 
+           Linhas mais finas e com espaçamento levemente 
+           maior (aproximadamente 2%) entre o texto e a linha.
            ========================================= */
         .nav-neon-link {
-            padding: 4px 2px;
+            padding: 4px 2px 6px 2px; /* Espaço inferior adicionado para distanciar a linha */
             border-radius: 0; 
             border: none;
             color: #ffffff; 
@@ -304,7 +305,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 1px; /* Linha mais fina */
             background: #00f0ff;
             box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
             transition: all 0.3s ease;
@@ -316,12 +317,12 @@
             box-shadow: none;
         }
         .nav-neon-link:hover::after {
-            height: 3px;
+            height: 2px; /* Fica levemente mais grossa no hover, mas ainda fina */
             box-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff;
         }
 
         .nav-neon-portfolio {
-            padding: 4px 2px; 
+            padding: 4px 2px 6px 2px; /* Espaço inferior adicionado para distanciar a linha */
             border-radius: 0; 
             border: none;
             color: #ffffff; 
@@ -340,7 +341,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 1px; /* Linha mais fina */
             background: #ff00aa;
             box-shadow: 0 0 10px #ff00aa, 0 0 20px #bf00ff;
             transition: all 0.3s ease;
@@ -351,11 +352,11 @@
             box-shadow: none;
         }
         .nav-neon-portfolio:hover::after {
-            height: 3px;
+            height: 2px; /* Fica levemente mais grossa no hover, mas ainda fina */
             box-shadow: 0 0 15px #ff00aa, 0 0 30px #bf00ff;
         }
         /* =========================================
-           FIM DA MODIFICAÇÃO 1
+           FIM DA ATUALIZAÇÃO DOS BOTÕES
            ========================================= */
 
         /* WHATSAPP FLOATING BUTTON */
@@ -614,6 +615,10 @@
                     <h2 class="font-display text-4xl md:text-6xl font-bold text-white">
                         Criativos Que Vendem Mais
                     </h2>
+                    <!-- ATUALIZAÇÃO: Descrição adicionada abaixo do título -->
+                    <p class="text-slate-400 text-sm md:text-base mt-4 max-w-2xl mx-auto">
+                        Vídeos criados totalmente com I.A para venda de produtos e serviços
+                    </p>
                 </div>
 
                 <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -982,7 +987,11 @@
 
                 <div class="max-w-7xl mx-auto px-6 relative z-10 text-center mb-16">
                     <span class="text-neon-cyan text-xs font-bold tracking-[0.4em] uppercase mb-4 block">Produção com IA</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Diversos usos profissionais para o seu negócio escalar mais</h2>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Diversos usos profissionais para o seu negócio escalar mais</h2>
+                    <!-- ATUALIZAÇÃO: Descrição adicionada abaixo do título -->
+                    <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
+                        Utilidades que você pode contratar ou aprender com a CRIEITI
+                    </p>
                 </div>
 
                 <div class="cyl-carousel-container" id="cylSwipeArea">
