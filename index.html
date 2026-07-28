@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -282,11 +281,9 @@
 
         /* =========================================
            ATUALIZAÇÃO: Botões do Menu 
-           Linhas mais finas e com espaçamento levemente 
-           maior (aproximadamente 2%) entre o texto e a linha.
            ========================================= */
         .nav-neon-link {
-            padding: 4px 2px 6px 2px; /* Espaço inferior adicionado para distanciar a linha */
+            padding: 4px 2px 6px 2px;
             border-radius: 0; 
             border: none;
             color: #ffffff; 
@@ -305,7 +302,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 1px; /* Linha mais fina */
+            height: 1px;
             background: #00f0ff;
             box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
             transition: all 0.3s ease;
@@ -317,12 +314,12 @@
             box-shadow: none;
         }
         .nav-neon-link:hover::after {
-            height: 2px; /* Fica levemente mais grossa no hover, mas ainda fina */
+            height: 2px;
             box-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff;
         }
 
         .nav-neon-portfolio {
-            padding: 4px 2px 6px 2px; /* Espaço inferior adicionado para distanciar a linha */
+            padding: 4px 2px 6px 2px;
             border-radius: 0; 
             border: none;
             color: #ffffff; 
@@ -341,7 +338,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 1px; /* Linha mais fina */
+            height: 1px;
             background: #ff00aa;
             box-shadow: 0 0 10px #ff00aa, 0 0 20px #bf00ff;
             transition: all 0.3s ease;
@@ -352,12 +349,9 @@
             box-shadow: none;
         }
         .nav-neon-portfolio:hover::after {
-            height: 2px; /* Fica levemente mais grossa no hover, mas ainda fina */
+            height: 2px;
             box-shadow: 0 0 15px #ff00aa, 0 0 30px #bf00ff;
         }
-        /* =========================================
-           FIM DA ATUALIZAÇÃO DOS BOTÕES
-           ========================================= */
 
         /* WHATSAPP FLOATING BUTTON */
         .wa-float-btn {
@@ -467,11 +461,14 @@
         @media (max-width: 1024px) {
             :root { --cyl-card-width: 250px; --cyl-card-height: 350px; --cyl-radius: 550px; --cyl-perspective: 850px; }
         }
+        /* MODIFICAÇÃO: Redução de ~17% apenas para Mobile */
         @media (max-width: 768px) {
-            :root { --cyl-card-width: 180px; --cyl-card-height: 260px; --cyl-radius: 400px; --cyl-perspective: 600px; }
+            :root { --cyl-card-width: 150px; --cyl-card-height: 216px; --cyl-radius: 332px; --cyl-perspective: 600px; }
+            .cyl-carousel-container { min-height: 373px !important; height: 50vh !important; }
         }
         @media (max-width: 480px) {
-            :root { --cyl-card-width: 140px; --cyl-card-height: 200px; --cyl-radius: 300px; --cyl-perspective: 450px; }
+            :root { --cyl-card-width: 116px; --cyl-card-height: 166px; --cyl-radius: 249px; --cyl-perspective: 450px; }
+            .cyl-carousel-container { min-height: 300px !important; height: 45vh !important; }
         }
 
         .cyl-carousel-container {
@@ -582,7 +579,7 @@
             </button>
         </div>
 
-        <!-- Mobile Menu -->
+        <!-- Mobile Menu (Botão Removido) -->
         <div id="mobile-menu" class="hidden md:hidden bg-white/5 backdrop-blur-3xl border-b border-white/10 overflow-hidden transition-all duration-300">
             <div class="px-6 py-8 flex flex-col gap-6">
                 <a href="#servicos" onclick="scrollToId('servicos'); toggleMobileMenu(); return false;" class="text-lg font-medium text-slate-300">Serviços</a>
@@ -590,10 +587,6 @@
                 <a href="#metodologia" onclick="scrollToId('metodologia'); toggleMobileMenu(); return false;" class="text-lg font-medium text-slate-300">Metodologia</a>
                 <a href="#portfolio" onclick="scrollToId('portfolio'); toggleMobileMenu(); return false;" class="text-lg font-medium text-slate-300">Educação</a>
                 <a href="#" onclick="showPage('portfolio'); toggleMobileMenu(); return false;" class="text-lg font-medium text-slate-300">Portfólio</a>
-
-                <button onclick="window.open('https://linktr.ee/Crieiti', '_blank')" class="w-full py-4 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-purple text-white font-bold">
-                    Entrar em Contato
-                </button>
             </div>
         </div>
     </nav>
@@ -608,7 +601,9 @@
             <section class="relative pt-32 pb-[81px] overflow-hidden">
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
                 <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
-                <div class="max-w-7xl mx-auto px-6 text-center mb-16 relative z-10">
+                
+                <!-- MODIFICAÇÃO: Margem inferior menor no Mobile (mb-4) para aproximar os vídeos do título -->
+                <div class="max-w-7xl mx-auto px-6 text-center mb-4 md:mb-16 relative z-10">
                     <span class="inline-block text-neon-cyan text-sm font-bold tracking-[0.4em] uppercase mb-6 animate-pulse">
                         Direção Criativa Digital
                     </span>
@@ -704,7 +699,6 @@
 
                           #hero-ugc-widget .hu-media-wrap { position: absolute; inset: 0; overflow: hidden; }
                           
-                          /* ATUALIZAÇÃO UGC: Ajuste para rodar vídeo nativo preenchendo toda a div */
                           #hero-ugc-widget .hu-media-wrap video {
                             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
                             object-fit: cover; border: 0; pointer-events: none;
@@ -749,7 +743,6 @@
                           }
                         </style>
 
-
                         <!-- CENA 3D COVER FLOW -->
                         <div class="hu-carousel-wrap" id="huSwipeArea">
                           <button class="hu-nav-btn hu-prev" id="huPrevBtn" aria-label="Vídeo anterior">
@@ -775,7 +768,6 @@
 
                       <script>
                       (function(){
-                        // ATUALIZAÇÃO UGC: Alterado de IDs do Youtube para os nomes dos arquivos de vídeo local na pasta
                         const HU_VIDEOS = [
                           { src: 'nike.mp4', label: 'Calçados' },
                           { src: 'UGCX.mp4', label: 'Produtos' },
@@ -823,10 +815,10 @@
                                 const mediaWrap = document.createElement('div');
                                 mediaWrap.className = 'hu-media-wrap';
                                 
-                                // ATUALIZAÇÃO UGC: Usando tag nativa <video> com autoplay
+                                // MODIFICAÇÃO: Removido autoplay=true padrão.
+                                // Agora apenas o vídeo central tocará pela lógica do intersection (is-front).
                                 const videoEl = document.createElement('video');
                                 videoEl.src = video.src;
-                                videoEl.autoplay = true;
                                 videoEl.muted = true;
                                 videoEl.loop = true;
                                 videoEl.playsInline = true;
@@ -843,7 +835,6 @@
                                 label.textContent = video.label;
                                 inner.appendChild(label);
 
-                                // ATUALIZAÇÃO UGC: Clique na carta abre o Modal de Vídeo com o arquivo local
                                 card.addEventListener('click', () => {
                                     if(card.classList.contains('is-front')) {
                                         openVideoModal(video.src + '?autoplay=1');
@@ -877,7 +868,7 @@
                                 
                                 const wasFront = el.classList.contains('is-front');
                                 
-                                // ATUALIZAÇÃO UGC: Controle nativo de Play/Pause no scroll
+                                // Controle nativo de Play/Pause baseado no "is-front"
                                 if (isFront !== wasFront) {
                                     el.classList.toggle('is-front', isFront);
                                     const vid = el.querySelector('video');
@@ -982,14 +973,13 @@
             </section>
 
             <!-- NOVA SEÇÃO: PRODUÇÃO COM IA (CARROSSEL CILÍNDRICO) -->
-            <!-- ESPAÇAMENTO REDUZIDO EM -4% (de py-24 para pt-20 pb-12) -->
             <section class="pt-20 pb-12 relative overflow-hidden reveal-blur">
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none"></div>
 
-                <div class="max-w-7xl mx-auto px-6 relative z-10 text-center mb-16">
+                <!-- MODIFICAÇÃO: Margem inferior menor no Mobile (mb-6) para aproximar os elementos -->
+                <div class="max-w-7xl mx-auto px-6 relative z-10 text-center mb-6 md:mb-16">
                     <span class="text-neon-cyan text-xs font-bold tracking-[0.4em] uppercase mb-4 block">Produção com IA</span>
                     <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Múltiplas aplicações</h2>
-                    <!-- ATUALIZAÇÃO: Descrição adicionada abaixo do título -->
                     <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
                         Diversas soluções para seu negócio e utilidades que você pode contratar ou aprender
                     </p>
@@ -1018,7 +1008,6 @@
             </section>
 
             <!-- SEÇÃO 2: TÍTULO + VÍDEO -->
-            <!-- ESPAÇAMENTO REDUZIDO EM -4% (de pt-[68px] para pt-[40px] pb-[40px] min-h-[75vh]) -->
             <section class="relative min-h-[75vh] flex items-center pt-[40px] pb-[40px] overflow-hidden">
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
                 <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
@@ -1056,7 +1045,6 @@
             </section>
 
             <!-- SERVIÇOS -->
-            <!-- ESPAÇAMENTO REDUZIDO EM -4% (de pt-[110px] para pt-[70px]) -->
             <section id="servicos" class="pt-[70px] pb-[110px] relative reveal-blur">
                 <div class="max-w-7xl mx-auto px-6">
                     <div class="text-center mb-20">
@@ -1431,7 +1419,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Voltar para Home
             </button>
 
-            <!-- MODIFICAÇÃO 2: Espaçamento reduzido drasticamente alterando o margin-bottom (de mb-20 para mb-8) -->
             <div class="text-center mb-8 relative">
                 <div class="qs-neon-line" style="top: 50%; left: 0; width: 15%; position: absolute; animation-delay: 0s;"></div>
                 <div class="qs-neon-line" style="top: 50%; right: 0; width: 15%; position: absolute; animation-delay: 1s;"></div>
@@ -1439,17 +1426,11 @@
                 <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 qs-title-3d">Nosso Portfólio</h1>
                 <div class="w-32 h-px mx-auto bg-gradient-to-r from-transparent via-neon-cyan to-transparent mb-8" style="box-shadow: 0 0 20px var(--neon-cyan);"></div>
                 
-                <!-- MODIFICAÇÃO 2: Margem inferior reduzida (mb-12 alterado para mb-4) para aproximar o carrossel do texto -->
                 <p class="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed mb-4">Cada projeto é uma arquitetura de comunicação única — onde criatividade, tecnologia e estratégia se encontram para gerar impacto real.</p>
             </div>
 
             <!-- CARROSSEL CRISTISON -->
-            <!-- MODIFICAÇÃO 2: Classes de espaçamento "mt-24 pt-16" alteradas para "mt-4 pt-4" para encurtar o buraco visual -->
             <div class="mt-4 pt-4 border-t border-white/5">
-                
-                <!-- MODIFICAÇÃO 3: Os textos ("Cristison Portfólio / Artes, Vídeos & Muito Mais...") foram apagados aqui, 
-                     removendo totalmente a antiga <div> que os continha, conforme solicitado -->
-
                 <div id="cristison-sections-container"></div>
             </div>
 
@@ -1709,7 +1690,6 @@
 
             const allIframes = document.querySelectorAll('iframe');
             allIframes.forEach(iframe => {
-                // Remove the general reset for the UGC carousel to not break postMessage
                 if (iframe.id !== 'modal-youtube-player' && !iframe.src.includes('controls=0') && !iframe.src.includes('enablejsapi=1')) {
                     const currentSrc = iframe.src;
                     iframe.src = ''; 
