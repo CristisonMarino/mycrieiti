@@ -1,29 +1,4 @@
-Peço desculpas pelo erro. No código anterior, acabei deixando a chamada para uma
-função de vídeo que já havia sido removida, o que causou um erro no JavaScript
-(ReferenceError) e travou o funcionamento do site (menu, animações, etc.).
 
-Já corrigi o erro que travava o código. Além disso, ajustei exatamente os pontos
-que você pediu:
-
-1.  Fundo com as linhas de "Quem Somos": Repliquei exatamente a estrutura HTML e
-    as classes CSS das linhas em neon e orbes flutuantes da aba "Quem Somos"
-    para o fundo fixo global do site. Agora elas passeiam lentamente com brilhos
-    e tamanhos variados, exatamente como você queria.
-2.  Sincronização 30 segundos: A linha de barra neon abaixo dos vídeos agora
-    reseta exatamente no mesmo momento em que o vídeo de 30 segundos é trocado
-    automaticamente.
-3.  Stand By e Resumo de Vídeos: Agora, ao navegar entre "Portfólio" ou outras
-    páginas, os vídeos entram em pausa total (poupando processamento). Ao voltar
-    para "Home", o sistema identifica qual era o vídeo que estava na frente
-    (ativo) no carrossel e o vídeo fixo da 3ª sessão, e dá o Play
-    automaticamente apenas neles.
-4.  Pré-load de 1 segundo: Configurado perfeitamente. Todos dão um "play" mudo
-    inicial por 1 segundo e pausam, para carregar o buffer sem engasgos na
-    troca.
-
-Aqui está o código completo, corrigido e 100% original:
-
---- START OF FILE text/plain ---
 
 <link rel="icon" href="logo1.png" type="image/svg+xml">
 
