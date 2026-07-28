@@ -615,7 +615,6 @@
                     <h2 class="font-display text-4xl md:text-6xl font-bold text-white">
                         Criativos Que Vendem Mais
                     </h2>
-                    <!-- ATUALIZAÇÃO: Descrição adicionada abaixo do título -->
                     <p class="text-slate-400 text-sm md:text-base mt-4 max-w-2xl mx-auto">
                         Vídeos criados totalmente com I.A para venda de produtos e serviços
                     </p>
@@ -704,10 +703,13 @@
                           }
 
                           #hero-ugc-widget .hu-media-wrap { position: absolute; inset: 0; overflow: hidden; }
-                          #hero-ugc-widget .hu-media-wrap iframe {
-                            position: absolute; top: 50%; left: 50%; width: 160%; height: 160%;
-                            transform: translate(-50%, -50%); border: 0; pointer-events: none;
+                          
+                          /* ATUALIZAÇÃO UGC: Ajuste para rodar vídeo nativo preenchendo toda a div */
+                          #hero-ugc-widget .hu-media-wrap video {
+                            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                            object-fit: cover; border: 0; pointer-events: none;
                           }
+
                           #hero-ugc-widget .hu-overlay {
                             position: absolute; inset: 0; pointer-events: none;
                             background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
@@ -773,17 +775,17 @@
 
                       <script>
                       (function(){
-                        // CORREÇÃO DOS IDs: Agora armazenamos APENAS os IDs reais do YouTube para o Modal funcionar em qualquer servidor
+                        // ATUALIZAÇÃO UGC: Alterado de IDs do Youtube para os nomes dos arquivos de vídeo local na pasta
                         const HU_VIDEOS = [
-                          { id: 'XDQwSKtx3FY', label: 'Construções & Projeções' },
-                          { id: 'QqizcUfW42c', label: 'Publicidade Hamburguer' },
-                          { id: 'lVzbMhEN5Q4', label: 'Calçado' },
-                          { id: '-vRa9lT0z6A', label: 'UGC' },
-                          { id: 'qlkPjkUI37s', label: 'Projeção de Prédio' },
-                          { id: 'JC-MyTRSRBk', label: 'Perfume' },
-                          { id: 'mGRB_z49jmg', label: 'Viral Teste' },
-                          { id: 'GFzH5KUPZfA', label: 'Mobilia' },
-                          { id: 'FPPu1JWpeSE', label: 'Instagram Conceito' }
+                          { src: 'nike.mp4', label: 'Construções & Projeções' },
+                          { src: 'perfume.mp4', label: 'Publicidade Hamburguer' },
+                          { src: 'ugc2.mp4', label: 'Calçado' },
+                          { src: 'IMOB.mp4', label: 'UGC' },
+                          { src: 'criative.mp4', label: 'Projeção de Prédio' },
+                          { src: 'UGCwey.mp4', label: 'Perfume' },
+                          { src: 'contrution.mp4', label: 'Viral Teste' },
+                          { src: 'minicar.mp4', label: 'Mobilia' },
+                          { src: 'coca.mp4', label: 'Instagram Conceito' }
                         ];
 
                         const HU_ROTATE_MS = 30000;
@@ -806,11 +808,6 @@
                         let huRotateTimer = null;
                         let cards = [];
 
-                        // Adicionado enablejsapi=1 para permitir controle de Play/Pause pelo PostMessage
-                        function huEmbedUrl(id){
-                          return `https://www.youtube.com/embed/${id}?autoplay=0&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&enablejsapi=1`;
-                        }
-
                         function initCards() {
                             cards = HU_VIDEOS.map((video, i) => {
                                 const card = document.createElement('div');
@@ -826,20 +823,15 @@
                                 const mediaWrap = document.createElement('div');
                                 mediaWrap.className = 'hu-media-wrap';
                                 
-                                const iframe = document.createElement('iframe');
-                                iframe.src = huEmbedUrl(video.id);
-                                iframe.title = video.label;
-                                iframe.allow = "autoplay; encrypted-media";
-                                iframe.loading = "lazy";
+                                // ATUALIZAÇÃO UGC: Usando tag nativa <video> com autoplay
+                                const videoEl = document.createElement('video');
+                                videoEl.src = video.src;
+                                videoEl.autoplay = true;
+                                videoEl.muted = true;
+                                videoEl.loop = true;
+                                videoEl.playsInline = true;
                                 
-                                // Quando a iframe carregar, se ela for a da frente, já dá o Play
-                                iframe.onload = () => {
-                                    if(card.classList.contains('is-front')) {
-                                        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                                    }
-                                };
-                                
-                                mediaWrap.appendChild(iframe);
+                                mediaWrap.appendChild(videoEl);
                                 inner.appendChild(mediaWrap);
 
                                 const overlay = document.createElement('div');
@@ -850,6 +842,15 @@
                                 label.className = 'hu-label';
                                 label.textContent = video.label;
                                 inner.appendChild(label);
+
+                                // ATUALIZAÇÃO UGC: Clique na carta abre o Modal de Vídeo com o arquivo local
+                                card.addEventListener('click', () => {
+                                    if(card.classList.contains('is-front')) {
+                                        openVideoModal(video.src + '?autoplay=1');
+                                    } else {
+                                        goTo(i);
+                                    }
+                                });
 
                                 card.appendChild(inner);
 
@@ -876,15 +877,15 @@
                                 
                                 const wasFront = el.classList.contains('is-front');
                                 
-                                // Lógica inteligente de Auto-Play / Pause via API Nativa do YouTube
+                                // ATUALIZAÇÃO UGC: Controle nativo de Play/Pause no scroll
                                 if (isFront !== wasFront) {
                                     el.classList.toggle('is-front', isFront);
-                                    const iframe = el.querySelector('iframe');
-                                    if (iframe && iframe.contentWindow) {
+                                    const vid = el.querySelector('video');
+                                    if (vid) {
                                         if (isFront) {
-                                            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                                            vid.play().catch(e => console.log("Autoplay bloqueado", e));
                                         } else {
-                                            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                                            vid.pause();
                                         }
                                     }
                                 }
@@ -2142,7 +2143,7 @@
             }
         });
 
-        /* =========================================
+         /* =========================================
            SCRIPT: 3D CYLINDER CAROUSEL (PRODUÇÃO COM IA)
            ========================================= */
         (function init3DCylinderCarousel() {
