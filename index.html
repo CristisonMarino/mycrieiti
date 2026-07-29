@@ -42,6 +42,12 @@
         --neon-blue: #00ddff;
     }
 
+    /* PREVENÇÃO DE SCROLL HORIZONTAL EM MOBILE */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
     
     .section-divider {
         height: 1px;
@@ -155,7 +161,7 @@
     /* NOISE */
     .site-noise {
         position: fixed; 
-        top: 0; left: 0; width: 100%; height: 100%;
+        top: 0; left: 0; width: 100vw; height: 100vh;
         pointer-events: none; 
         z-index: 9999; 
         opacity: 0.12; 
@@ -579,9 +585,9 @@
     <div id="page-home" class="page-view active">
         
         <!-- SEÇÃO 1: SHOWCASE UGC -->
-        <section class="relative pt-32 pb-[81px] overflow-hidden">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
-            <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
+        <section class="relative pt-24 md:pt-32 pb-12 md:pb-[81px] overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] md:w-[700px] h-[350px] sm:h-[500px] md:h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
+            <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
             <div class="qs-particle" style="left: 15%; top: 25%; --dur: 7s; --delay: 0s;"></div>
             <div class="qs-particle" style="left: 75%; top: 60%; --dur: 9s; --delay: 1s; background: var(--neon-purple);"></div>
             <div class="qs-particle" style="left: 40%; top: 80%; --dur: 6s; --delay: 2s; background: var(--neon-pink);"></div>
@@ -592,7 +598,7 @@
                 <span class="inline-block text-neon-cyan text-sm font-bold tracking-[0.4em] uppercase mb-6 animate-pulse">
                     Direção Criativa Digital
                 </span>
-                <h2 class="font-display text-4xl md:text-6xl font-bold text-white">
+                <h2 class="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-white">
                     Criativos Que Vendem Mais
                 </h2>
                 <p class="text-slate-400 text-sm md:text-base mt-4 max-w-2xl mx-auto">
@@ -981,11 +987,11 @@
 
         <!-- SEÇÃO: PRODUÇÃO COM IA (CARROSSEL CILÍNDRICO) -->
         <section class="pt-20 pb-12 relative overflow-hidden reveal-blur">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-6 relative z-10 text-center mb-6 md:mb-16">
                 <span class="text-neon-cyan text-xs font-bold tracking-[0.4em] uppercase mb-4 block">Produção com IA</span>
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Múltiplas aplicações</h2>
+                <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">Múltiplas aplicações</h2>
                 <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
                     Diversas soluções para seu negócio e utilidades que você pode contratar ou aprender
                 </p>
@@ -1017,12 +1023,12 @@
 
         <!-- SEÇÃO 2: TÍTULO + VÍDEO -->
         <section class="relative min-h-[75vh] flex items-center pt-[40px] pb-[40px] overflow-hidden">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
-            <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] md:w-[700px] h-[350px] sm:h-[500px] md:h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
+            <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
             
             <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center">
                 <div class="relative z-10 text-center lg:text-left">
-                    <h1 class="font-display text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
+                    <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
                         Transforme sua Marca<br>
                         <span class="animate-gradient-left bg-clip-text text-transparent">
                             com a Mídia do Futuro
@@ -1032,10 +1038,10 @@
                         A Crieiti é uma plataforma de desenvolvimento em Direção Criativa Digital, especializada em produtividade com IA.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <button onclick="window.open('https://linktr.ee/Crieiti', '_blank')" class="px-8 py-4 rounded-xl bg-neon-cyan/10 border border-neon-cyan text-neon-cyan font-bold text-lg hover:bg-neon-cyan hover:text-black transition-all duration-300 shadow-[0_0_30px_rgba(0,240,255,0.4)]">
+                        <button onclick="window.open('https://linktr.ee/Crieiti', '_blank')" class="px-8 py-4 w-full sm:w-auto text-center justify-center rounded-xl bg-neon-cyan/10 border border-neon-cyan text-neon-cyan font-bold text-lg hover:bg-neon-cyan hover:text-black transition-all duration-300 shadow-[0_0_30px_rgba(0,240,255,0.4)]">
                             Solicitar Arquitetura
                         </button>
-                        <button onclick="scrollToId('portfolio')" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold text-lg hover:bg-white/10 transition-all">
+                        <button onclick="scrollToId('portfolio')" class="px-8 py-4 w-full sm:w-auto text-center justify-center rounded-xl bg-white/5 border border-white/10 text-white font-bold text-lg hover:bg-white/10 transition-all">
                             Ver Criativos
                         </button>
                     </div>
@@ -1056,12 +1062,12 @@
 
         <!-- SERVIÇOS -->
         <section id="servicos" class="pt-[70px] pb-[110px] relative reveal-blur bg-[#08080c]">
-            <div class="absolute top-0 left-1/4 -translate-x-1/2 w-[500px] h-[500px] bg-neon-cyan/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
-            <div class="absolute bottom-0 right-1/4 translate-x-1/2 w-[500px] h-[500px] bg-neon-purple/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
+            <div class="absolute top-0 left-1/4 -translate-x-1/2 w-[250px] sm:w-[400px] md:w-[500px] h-[250px] sm:h-[400px] md:h-[500px] bg-neon-cyan/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
+            <div class="absolute bottom-0 right-1/4 translate-x-1/2 w-[250px] sm:w-[400px] md:w-[500px] h-[250px] sm:h-[400px] md:h-[500px] bg-neon-purple/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
             <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.47) 100%);"></div>
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <div class="text-center mb-20">
-                    <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">Direção Digital</h2>
+                    <h2 class="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6">Direção Digital</h2>
                     <p class="text-slate-400 text-lg max-w-2xl mx-auto">Três direções integradas de alta tecnologia para escalar seu negócio e dominar o mercado.</p>
                 </div>
 
@@ -1134,7 +1140,7 @@
             <div class="max-w-7xl mx-auto px-6">
                 <div class="text-center mb-24">
                     <span class="text-neon-cyan text-xs font-bold tracking-[0.4em] uppercase mb-4 block">Visão de Método</span>
-                    <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-8 max-w-4xl mx-auto leading-tight">
+                    <h2 class="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-8 max-w-4xl mx-auto leading-tight">
                         Existe uma engenharia exata para que sua empresa nunca pare de vender.
                     </h2>
                     <div class="relative inline-block px-8 py-4 rounded-full bg-neon-cyan/5 border border-neon-cyan/20 overflow-hidden">
@@ -1145,11 +1151,11 @@
 
                 <div class="relative h-[600px] flex items-center justify-center mb-24">
                     <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div class="w-[500px] h-[500px] border border-neon-cyan/30 rounded-full border-dashed animate-[spin_20s_linear_infinite]"></div>
-                        <div class="absolute w-[400px] h-[400px] border border-neon-purple/30 rounded-full border-dashed animate-[spin_15s_linear_infinite_reverse]"></div>
+                        <div class="w-[280px] sm:w-[400px] md:w-[500px] h-[280px] sm:h-[400px] md:h-[500px] border border-neon-cyan/30 rounded-full border-dashed animate-[spin_20s_linear_infinite]"></div>
+                        <div class="absolute w-[220px] sm:w-[320px] md:w-[400px] h-[220px] sm:h-[320px] md:h-[400px] border border-neon-purple/30 rounded-full border-dashed animate-[spin_15s_linear_infinite_reverse]"></div>
                     </div>
 
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full relative z-10">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full relative z-10">
                         <!-- Atenção -->
                         <div class="flex flex-col items-center text-center group">
                             <div class="w-24 h-24 rounded-full bg-gradient-to-br from-white/20 to-black border-2 border-white/30 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform duration-500 relative orb-float">
@@ -1204,13 +1210,13 @@
             <div class="qs-particle" style="left: 40%; top: 80%; --dur: 6s; --delay: 2s; background: var(--neon-pink);"></div>
             <div class="qs-particle" style="left: 88%; top: 20%; --dur: 8s; --delay: 0.5s;"></div>
             <div class="qs-particle" style="left: 60%; top: 15%; --dur: 10s; --delay: 3s; background: var(--neon-purple);"></div>
-            <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-neon-cyan/5 blur-[150px] rounded-full pointer-events-none"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-neon-purple/8 blur-[120px] rounded-full pointer-events-none"></div>
+            <div class="absolute top-1/4 left-1/4 w-[250px] md:w-[500px] h-[250px] md:h-[500px] bg-neon-cyan/5 blur-[150px] rounded-full pointer-events-none"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-neon-purple/8 blur-[120px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <div class="text-center mb-20">
                     <span class="text-neon-cyan text-xs font-bold tracking-[0.5em] uppercase mb-4 block">Nossa Identidade</span>
-                    <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-6 qs-title-3d leading-tight">Quem Somos</h2>
+                    <h2 class="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6 qs-title-3d leading-tight">Quem Somos</h2>
                     <div class="w-24 h-px mx-auto bg-gradient-to-r from-transparent via-neon-cyan to-transparent mb-8" style="box-shadow: 0 0 25px var(--neon-cyan);"></div>
                     <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">Somos uma plataforma de <span class="text-neon-cyan font-semibold">Direção Criativa Digital</span> que une tecnologia de ponta, inteligência artificial e estratégia de comunicação para transformar marcas em referências do mercado digital.</p>
                 </div>
@@ -1286,7 +1292,7 @@
         <section id="portfolio" class="py-32 reveal-blur">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="text-center mb-20">
-                    <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">Produções</h2>
+                    <h2 class="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6">Produções</h2>
                     <p class="text-slate-400 text-lg">Explore nossos projetos desenhados para reter atenção.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
@@ -1323,11 +1329,11 @@
 
         <!-- CTA FINAL -->
         <section class="py-32 text-center relative overflow-hidden reveal-blur">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-purple/20 blur-[180px] -z-10 animate-pulse-slow"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[700px] h-[350px] md:h-[700px] bg-neon-purple/20 blur-[180px] -z-10 animate-pulse-slow"></div>
             <div class="max-w-4xl mx-auto px-6">
-                <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-8">Pronto para iniciar a transformação?</h2>
+                <h2 class="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-8">Pronto para iniciar a transformação?</h2>
                 <p class="text-xl text-slate-400 mb-12">Agende uma mentoria de gestão criativa e domine o uso de Inteligência Artificial e design de alto nível para escalar sua autoridade digital.</p>
-                <button onclick="window.open('https://linktr.ee/Crieiti', '_blank')" class="px-12 py-5 rounded-2xl bg-neon-cyan text-black font-bold text-xl hover:scale-105 hover:shadow-[0_0_50px_rgba(0,240,255,0.6)] transition-all">
+                <button onclick="window.open('https://linktr.ee/Crieiti', '_blank')" class="px-12 py-5 w-full sm:w-auto text-center justify-center rounded-2xl bg-neon-cyan text-black font-bold text-xl hover:scale-105 hover:shadow-[0_0_50px_rgba(0,240,255,0.6)] transition-all">
                     Solicitar Orçamento
                 </button>
             </div>
@@ -1341,7 +1347,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Voltar para Home
             </button>
             <div class="text-center mb-16">
-                <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-8">Direcionamento estratégico</h1>
+                <h1 class="font-display text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-8">Direcionamento estratégico</h1>
                 <p class="text-xl text-slate-400 leading-relaxed max-w-3xl mx-auto">Arquitetura de fluxos e mapeamento de funil de alta conversão. Estratégias validadas para otimizar canais através de dados precisos.</p>
             </div>
             <div onclick="openVideoModal('https://youtu.be/OtqW34kFgK4')" class="group relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-black shadow-2xl mb-20 cursor-pointer">
@@ -1370,7 +1376,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Voltar para Home
             </button>
             <div class="text-center mb-16">
-                <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-8">Imersão em Branding</h1>
+                <h1 class="font-display text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-8">Imersão em Branding</h1>
                 <p class="text-xl text-slate-400 leading-relaxed max-w-3xl mx-auto">Direção Estratégica de Identidade e Posicionamento Visual</p>
             </div>
             <div onclick="openVideoModal('https://youtu.be/vbYt7eJay8g')" class="group relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-black shadow-2xl mb-20 cursor-pointer">
@@ -1399,7 +1405,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Voltar para Home
             </button>
             <div class="text-center mb-16">
-                <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-8">Direção Criativa com IA</h1>
+                <h1 class="font-display text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-8">Direção Criativa com IA</h1>
                 <p class="text-xl text-slate-400 leading-relaxed max-w-3xl mx-auto">O futuro do audiovisual. Unimos direção de arte humana com inteligência artificial generativa para desenvolvimento prático.</p>
             </div>
             <div onclick="openVideoModal('https://youtu.be/fcMfqt1pEGU')" class="group relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-black shadow-2xl mb-20 cursor-pointer">
@@ -1427,8 +1433,8 @@
 <!-- PORTFOLIO PAGE -->
 <div id="page-portfolio" class="page-view stand-by">
     <div class="fixed inset-0 -z-10 bg-black overflow-hidden pointer-events-none">
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/10 blur-[200px] rounded-full animate-pulse-slow"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-neon-cyan/8 blur-[150px] rounded-full"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-neon-purple/10 blur-[200px] rounded-full animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-neon-cyan/8 blur-[150px] rounded-full"></div>
     </div>
 
     <div class="pt-32 pb-20 max-w-7xl mx-auto px-6">
@@ -1438,7 +1444,7 @@
 
         <div class="text-center mb-8 relative">
             <span class="text-neon-cyan text-xs font-bold tracking-[0.5em] uppercase mb-4 block">Trabalhos Selecionados</span>
-            <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 qs-title-3d">Nosso Portfólio</h1>
+            <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 qs-title-3d">Nosso Portfólio</h1>
             <div class="w-32 h-px mx-auto bg-gradient-to-r from-transparent via-neon-cyan to-transparent mb-8" style="box-shadow: 0 0 25px var(--neon-cyan);"></div>
             
             <p class="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed mb-4">Cada projeto é uma arquitetura de comunicação única — onde criatividade, tecnologia e estratégia se encontram para gerar impacto real.</p>
@@ -1574,9 +1580,9 @@
                     <button onclick="filterPortfolio('criativo')" class="portfolio-filter-btn px-6 py-2 rounded-full border border-white/20 text-slate-400 text-sm font-bold hover:border-neon-cyan hover:text-neon-cyan transition-all" data-filter="criativo">Criativo</button>
                 </div>
 
-                <h2 class="font-display text-3xl md:text-5xl font-bold text-white mb-6">Vamos criar algo extraordinário?</h2>
+                <h2 class="font-display text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-6">Vamos criar algo extraordinário?</h2>
                 <p class="text-slate-400 text-lg mb-10 max-w-xl mx-auto">Seu projeto pode ser o próximo case de sucesso. Entre em contato e vamos arquitetar juntos.</p>
-                <button onclick="window.open('https://wa.me/5531971935499?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20CRIEITI%20e%20gostaria%20de%20iniciar%20um%20projeto%20de%20publicidade', '_blank')" class="px-12 py-5 rounded-2xl bg-neon-cyan text-black font-bold text-xl hover:scale-105 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all">
+                <button onclick="window.open('https://wa.me/5531971935499?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20CRIEITI%20e%20gostaria%20de%20iniciar%20um%20projeto%20de%20publicidade', '_blank')" class="px-12 py-5 w-full sm:w-auto text-center justify-center rounded-2xl bg-neon-cyan text-black font-bold text-xl hover:scale-105 hover:shadow-[0_0_40px_rgba(0,240,255,0.4)] transition-all">
                     Iniciar Projeto
                 </button>
             </div>
@@ -1588,7 +1594,7 @@
 <footer class="bg-black/80 border-t border-white/10 pt-24 pb-12">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-12 mb-20">
-            <div class="col-span-2">
+            <div class="md:col-span-2">
                 <div class="flex items-center gap-3 mb-6">
                     <img src="logo1.png" alt="Logo CRIEITI" class="h-12 w-auto object-contain">
                     <span class="font-display font-bold text-2xl tracking-[0.2em] text-white block">CRIEITI</span>
