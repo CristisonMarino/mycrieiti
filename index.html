@@ -910,7 +910,10 @@
 
                             card.addEventListener('click', () => {
                                 if(card.classList.contains('is-front')) {
-                                    openVideoModal(video.src + '?autoplay=1');
+                                    // Bloqueia a abertura do modal no celular (window.innerWidth <= 768)
+                                    if (window.innerWidth > 768) {
+                                        openVideoModal(video.src + '?autoplay=1');
+                                    }
                                 } else {
                                     goTo(i);
                                     huRestartAutoRotate();
