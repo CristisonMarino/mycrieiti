@@ -527,14 +527,14 @@
 <body class="bg-bg-main text-white font-sans antialiased selection:bg-neon-cyan selection:text-black">
 
 <!-- FILTRO CINEMATOGRÁFICO DE GRANULADO -->
-<div class="site-noise"></div>
+<div class="site-noise hidden md:block"></div>
 
 <!-- VINHETA GERAL DO SITE (leve escurecimento nas bordas, destacando textos e informações) -->
 <div class="fixed inset-0 z-40 pointer-events-none" style="background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.41) 75%, rgba(0,0,0,0.71) 100%);"></div>
 
 <!-- BACKGROUND ATUALIZADO (Levemente mais claro, suave, sem vídeo) -->
 <div class="fixed inset-0 -z-10 bg-[#0e0e16] overflow-hidden">
-    <div class="absolute inset-0 bg-lines-pulse bg-[linear-gradient(to_right,rgba(0,240,255,0.13)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,240,255,0.13)_1px,transparent_1px)] bg-[size:90px_90px] [mask-image:radial-gradient(circle_at_center,black_60%,transparent_100%)]" style="transform: perspective(900px) rotateX(4deg) scale(1.2); transform-origin: center center;"></div>
+    <div class="hidden md:block absolute inset-0 bg-lines-pulse bg-[linear-gradient(to_right,rgba(0,240,255,0.13)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,240,255,0.13)_1px,transparent_1px)] bg-[size:90px_90px] [mask-image:radial-gradient(circle_at_center,black_60%,transparent_100%)]" style="transform: perspective(900px) rotateX(4deg) scale(1.2); transform-origin: center center;"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(8,8,14,0.91)_55%,rgba(3,3,7,1)_100%)]"></div>
 </div>
 
@@ -590,13 +590,13 @@
         
         <!-- SEÇÃO 1: SHOWCASE UGC -->
         <section class="relative pt-32 pb-[81px] overflow-hidden">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
-            <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
-            <div class="qs-particle" style="left: 15%; top: 25%; --dur: 7s; --delay: 0s;"></div>
-            <div class="qs-particle" style="left: 75%; top: 60%; --dur: 9s; --delay: 1s; background: var(--neon-purple);"></div>
-            <div class="qs-particle" style="left: 40%; top: 80%; --dur: 6s; --delay: 2s; background: var(--neon-pink);"></div>
-            <div class="qs-particle" style="left: 88%; top: 20%; --dur: 8s; --delay: 0.5s;"></div>
-            <div class="qs-particle" style="left: 60%; top: 15%; --dur: 10s; --delay: 3s; background: var(--neon-purple);"></div>
+            <div class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
+            <div class="hidden md:block absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
+            <div class="qs-particle hidden md:block" style="left: 15%; top: 25%; --dur: 7s; --delay: 0s;"></div>
+            <div class="qs-particle hidden md:block" style="left: 75%; top: 60%; --dur: 9s; --delay: 1s; background: var(--neon-purple);"></div>
+            <div class="qs-particle hidden md:block" style="left: 40%; top: 80%; --dur: 6s; --delay: 2s; background: var(--neon-pink);"></div>
+            <div class="qs-particle hidden md:block" style="left: 88%; top: 20%; --dur: 8s; --delay: 0.5s;"></div>
+            <div class="qs-particle hidden md:block" style="left: 60%; top: 15%; --dur: 10s; --delay: 3s; background: var(--neon-purple);"></div>
             
             <div class="max-w-7xl mx-auto px-6 text-center mb-1 md:mb-16 relative z-10">
                 <span class="inline-block text-neon-cyan text-sm font-bold tracking-[0.4em] uppercase mb-6 animate-pulse">
@@ -991,7 +991,7 @@
 
         <!-- SEÇÃO: PRODUÇÃO COM IA (CARROSSEL CILÍNDRICO) -->
         <section class="pt-20 pb-12 relative overflow-hidden reveal-blur">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none"></div>
+            <div class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-6 relative z-10 text-center mb-6 md:mb-16">
                 <span class="text-neon-cyan text-xs font-bold tracking-[0.4em] uppercase mb-4 block">Produção com IA</span>
@@ -1027,8 +1027,8 @@
 
         <!-- SEÇÃO 2: TÍTULO + VÍDEO -->
         <section class="relative min-h-[75vh] flex items-center pt-[40px] pb-[40px] overflow-hidden">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
-            <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
+            <div class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-cyan/20 blur-[180px] -z-10 animate-pulse-slow pointer-events-none"></div>
+            <div class="hidden md:block absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-conic-gradient from-neon-pink via-neon-purple to-neon-cyan rounded-full blur-[120px] opacity-20 animate-spin-slow pointer-events-none"></div>
             
             <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center">
                 <div class="relative z-10 text-center lg:text-left">
@@ -1066,8 +1066,8 @@
 
         <!-- SERVIÇOS -->
         <section id="servicos" class="pt-[70px] pb-[110px] relative reveal-blur bg-[#08080c]">
-            <div class="absolute top-0 left-1/4 -translate-x-1/2 w-[500px] h-[500px] bg-neon-cyan/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
-            <div class="absolute bottom-0 right-1/4 translate-x-1/2 w-[500px] h-[500px] bg-neon-purple/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
+            <div class="hidden md:block absolute top-0 left-1/4 -translate-x-1/2 w-[500px] h-[500px] bg-neon-cyan/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
+            <div class="hidden md:block absolute bottom-0 right-1/4 translate-x-1/2 w-[500px] h-[500px] bg-neon-purple/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
             <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.47) 100%);"></div>
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <div class="text-center mb-20">
@@ -1125,7 +1125,7 @@
 
         <!-- METODOLOGIA -->
         <section id="metodologia" class="py-32 relative overflow-hidden bg-black reveal-blur">
-            <div class="m-cr-galaxy-viewport">
+            <div class="m-cr-galaxy-viewport hidden md:block">
                 <div class="m-cr-galaxy-map">
                     <svg class="m-cr-orbits-svg" viewBox="0 0 1200 1200">
                         <circle cx="600" cy="600" r="300" fill="none" stroke="white" stroke-width="1" stroke-dasharray="4 8" />
@@ -1139,7 +1139,7 @@
                 </div>
             </div>
 
-            <div class="absolute inset-0 bg-[linear-gradient(rgba(0,240,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,240,255,0.15)_1px,transparent_1px)] bg-[size:80px_80px] [transform:perspective(1200px)_rotateX(70deg)] opacity-40 -z-10"></div>
+            <div class="hidden md:block absolute inset-0 bg-[linear-gradient(rgba(0,240,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,240,255,0.15)_1px,transparent_1px)] bg-[size:80px_80px] [transform:perspective(1200px)_rotateX(70deg)] opacity-40 -z-10"></div>
             
             <div class="max-w-7xl mx-auto px-6">
                 <div class="text-center mb-24">
@@ -1205,17 +1205,17 @@
 
         <!-- QUEM SOMOS -->
         <section id="quem-somos" class="py-32 relative overflow-hidden bg-black reveal-blur">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,240,255,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+            <div class="hidden md:block absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,240,255,0.05)_0%,transparent_70%)] pointer-events-none"></div>
             <div class="absolute inset-0 flex items-center justify-center pointer-events-none" style="z-index: 1;">
                 <div style="width: 90%; max-width: 1100px; height: 78%; border-radius: 50px; background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.35) 45%, transparent 75%); filter: blur(50px);"></div>
             </div>
-            <div class="qs-particle" style="left: 15%; top: 25%; --dur: 7s; --delay: 0s;"></div>
-            <div class="qs-particle" style="left: 75%; top: 60%; --dur: 9s; --delay: 1s; background: var(--neon-purple);"></div>
-            <div class="qs-particle" style="left: 40%; top: 80%; --dur: 6s; --delay: 2s; background: var(--neon-pink);"></div>
-            <div class="qs-particle" style="left: 88%; top: 20%; --dur: 8s; --delay: 0.5s;"></div>
-            <div class="qs-particle" style="left: 60%; top: 15%; --dur: 10s; --delay: 3s; background: var(--neon-purple);"></div>
-            <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-neon-cyan/5 blur-[150px] rounded-full pointer-events-none"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-neon-purple/8 blur-[120px] rounded-full pointer-events-none"></div>
+            <div class="qs-particle hidden md:block" style="left: 15%; top: 25%; --dur: 7s; --delay: 0s;"></div>
+            <div class="qs-particle hidden md:block" style="left: 75%; top: 60%; --dur: 9s; --delay: 1s; background: var(--neon-purple);"></div>
+            <div class="qs-particle hidden md:block" style="left: 40%; top: 80%; --dur: 6s; --delay: 2s; background: var(--neon-pink);"></div>
+            <div class="qs-particle hidden md:block" style="left: 88%; top: 20%; --dur: 8s; --delay: 0.5s;"></div>
+            <div class="qs-particle hidden md:block" style="left: 60%; top: 15%; --dur: 10s; --delay: 3s; background: var(--neon-purple);"></div>
+            <div class="hidden md:block absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-neon-cyan/5 blur-[150px] rounded-full pointer-events-none"></div>
+            <div class="hidden md:block absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-neon-purple/8 blur-[120px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <div class="text-center mb-20">
@@ -1333,7 +1333,7 @@
 
         <!-- CTA FINAL -->
         <section class="py-32 text-center relative overflow-hidden reveal-blur">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-purple/20 blur-[180px] -z-10 animate-pulse-slow"></div>
+            <div class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon-purple/20 blur-[180px] -z-10 animate-pulse-slow"></div>
             <div class="max-w-4xl mx-auto px-6">
                 <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-8">Pronto para iniciar a transformação?</h2>
                 <p class="text-xl text-slate-400 mb-12">Agende uma mentoria de gestão criativa e domine o uso de Inteligência Artificial e design de alto nível para escalar sua autoridade digital.</p>
@@ -1436,9 +1436,9 @@
 
 <!-- PORTFOLIO PAGE -->
 <div id="page-portfolio" class="page-view stand-by">
-    <div class="fixed inset-0 -z-10 bg-black overflow-hidden pointer-events-none">
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/10 blur-[200px] rounded-full animate-pulse-slow"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-neon-cyan/8 blur-[150px] rounded-full"></div>
+    <div class="hidden md:block fixed inset-0 -z-10 bg-black overflow-hidden pointer-events-none">
+        <div class="hidden md:block absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/10 blur-[200px] rounded-full animate-pulse-slow"></div>
+        <div class="hidden md:block absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-neon-cyan/8 blur-[150px] rounded-full"></div>
     </div>
 
     <div class="pt-32 pb-20 max-w-7xl mx-auto px-6">
