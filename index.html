@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -49,7 +50,33 @@
             --neon-blue: #00ddff;
         }
 
-        
+        /* CONFIGURAÇÕES DE DESEMPENHO PARA MOBILE - REMOVE NEON PESADO E BLURS */
+        @media (max-width: 768px) {
+            .animate-pulse-slow, .animate-spin-slow, .animate-bar-sweep, .animate-gradient-left {
+                animation: none !important;
+            }
+            .blur-\[180px\], .blur-\[120px\], .blur-\[150px\], .blur-\[160px\], .blur-\[200px\], .blur-3xl {
+                filter: none !important;
+                display: none !important;
+            }
+            .reveal-blur {
+                filter: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+                transition: none !important;
+            }
+            .shadow-2xl, .shadow-\[0_0_50px_rgba\(0\,240\,255\,0\.1\)\], .neon-glow-green, .neon-glow-red, .neon-glow-blue {
+                box-shadow: none !important;
+            }
+            .navbar-liquid-glass {
+                backdrop-filter: none !important;
+                background: rgba(20, 20, 25, 0.95) !important;
+            }
+            .site-noise {
+                display: none !important;
+            }
+        }
+
         .section-divider {
             height: 1px;
             width: 100%;
@@ -468,7 +495,7 @@
             100% { transform: translateX(400%) skewX(-20deg); }
         }
         .dir-card {
-            background: rgba(5, 5, 20, 0.88);
+            background: rgba(15, 15, 30, 0.9); /* LEVEMENTE MAIS CLARO CONFORME SOLICITADO */
             border: 1px solid rgba(0, 240, 255, 0.25);
             border-radius: 20px;
             position: relative;
@@ -752,7 +779,8 @@
                       </button>
                     </div>
 
-                    <div class="hu-progress-track">
+                    <!-- RETIRA LINHA DE TEMPO NO CELULAR (hidden md:block) -->
+                    <div class="hu-progress-track hidden md:block">
                       <div class="hu-progress-fill" id="huProgressFill"></div>
                     </div>
                   </div>
@@ -955,6 +983,7 @@
                     }, { passive: true });
 
                     function huStartProgressBar(){
+                      if(!huProgressFill) return;
                       huProgressFill.classList.remove('hu-animate');
                       void huProgressFill.offsetWidth; // Force Reflow para reiniciar a animação CSS
                       huProgressFill.classList.add('hu-animate');
@@ -1063,7 +1092,7 @@
 
         <div class="section-divider section-divider-strong"></div>
 
-        <!-- SERVIÇOS -->
+        <!-- SERVIÇOS (DIREÇÃO DIGITAL) - CARDS LEVEMENTE MAIS CLAROS -->
         <section id="servicos" class="pt-[70px] pb-[110px] relative reveal-blur bg-[#08080c]">
             <div class="hidden md:block absolute top-0 left-1/4 -translate-x-1/2 w-[500px] h-[500px] bg-neon-cyan/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
             <div class="hidden md:block absolute bottom-0 right-1/4 translate-x-1/2 w-[500px] h-[500px] bg-neon-purple/20 blur-[160px] rounded-full pointer-events-none animate-pulse-slow"></div>
