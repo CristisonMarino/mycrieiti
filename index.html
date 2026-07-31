@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -321,6 +320,19 @@
             66% { transform: translateY(-15px) translateX(-10px); opacity: 0.6; }
         }
 
+        /* QUEM SOMOS - MODO LEVE PARA MOBILE */
+        @media (max-width: 768px) {
+            #quem-somos .qs-grid-3d,
+            #quem-somos .qs-particle,
+            #quem-somos .qs-neon-line,
+            #quem-somos .qs-neon-line-v { display: none; }
+            #quem-somos .qs-icon-ring::after { animation: none; }
+            #quem-somos .qs-card-3d { transition: none; }
+            #quem-somos .qs-card-3d:hover { transform: none; box-shadow: none; }
+            #quem-somos [style*="bar-sweep-qs"] { animation: none !important; }
+            #quem-somos .absolute.blur-\[150px\],
+            #quem-somos .absolute.blur-\[120px\] { filter: blur(60px); }
+        }
         .reveal-blur {
             opacity: 0; filter: blur(15px); transform: translateY(30px);
             transition: opacity 0.8s ease-out, filter 0.8s ease-out, transform 0.8s ease-out;
@@ -509,79 +521,6 @@
         .cyl-dot:hover { background: rgba(0, 240, 255, 0.4); }
         .cyl-dot.active { width: 28px; background: #00f0ff; box-shadow: 0 0 12px rgba(0, 240, 255, 0.5); }
         @media (max-width: 480px) { .cyl-nav-btn { display: none; } }
-
-        /* =========================================
-           OTIMIZAÇÃO PARA MOBILE (DESATIVA EFEITOS PESADOS E SEÇÕES)
-           ========================================= */
-        @media (max-width: 768px) {
-            /* Remove filtro de ruído que exige muito da GPU em celular */
-            .site-noise { display: none !important; }
-
-            /* Esconde as orbes desfocadas gigantes que dão muito peso no render */
-            .blur-\[180px\], .blur-\[150px\], .blur-\[120px\] { display: none !important; }
-
-            /* Desativa animações infinitas de fundo e pulso */
-            .animate-pulse-slow, .animate-spin-slow, .animate-bar-sweep, .orb-float {
-                animation: none !important;
-                transform: none !important;
-            }
-
-            /* Simplifica a grid de fundo animada */
-            .bg-lines-pulse {
-                animation: none !important;
-                opacity: 0.3 !important;
-            }
-
-            /* Remove os filtros backdrop complexos da navbar (Liquid Glass) */
-            .navbar-liquid-glass {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                background: rgba(10, 10, 15, 0.98) !important;
-            }
-
-            /* Desativa efeitos visuais pesados na sessão Galáxia e Metodologia */
-            .m-cr-galaxy-viewport, .qs-particle { display: none !important; }
-
-            /* Ocultar a seção do cilindro inteiro no mobile */
-            #sec-cilindro { display: none !important; }
-            #sec-cilindro-divider { display: none !important; }
-
-            /* Remove efeitos nos cards de Direção Digital e deixa levemente mais claros */
-            .dir-card {
-                background: rgba(30, 35, 50, 0.95) !important;
-                border: 1px solid rgba(255, 255, 255, 0.15) !important;
-                transform: none !important;
-                box-shadow: none !important;
-            }
-            .dir-card .shine-bar, .dir-card::before, .dir-card .absolute.top-0.left-0 { 
-                display: none !important; 
-            }
-            .dir-card:hover { transform: none !important; box-shadow: none !important; }
-            .neon-glow-green, .neon-glow-red, .neon-glow-blue { box-shadow: none !important; }
-
-            /* Otimização dos botões flutuantes */
-            .wa-float-btn {
-                animation: none !important;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
-            }
-            .home-float-btn {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                background: rgba(40, 40, 50, 0.9) !important;
-            }
-
-            /* Simplificação do popup de contato */
-            #contato-popup {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                background: rgba(5, 5, 12, 1) !important;
-            }
-
-            /* Reduz peso na engine 3d do widget de vídeos UGC */
-            #hero-ugc-widget .hu-card-inner {
-                box-shadow: none !important;
-            }
-        }
     </style>
 </head>
 <body class="bg-bg-main text-white font-sans antialiased selection:bg-neon-cyan selection:text-black">
@@ -843,11 +782,7 @@
                     const huNextBtn = document.getElementById('huNextBtn');
                     const swipeArea = document.getElementById('huSwipeArea');
 
-                    // No celular carrega apenas os 3 primeiros para otimização
-                    const isMobile = window.innerWidth <= 768;
-                    const finalVideos = isMobile ? HU_VIDEOS.slice(0, 3) : HU_VIDEOS;
-
-                    const count = finalVideos.length;
+                    const count = HU_VIDEOS.length;
                     const step = 360 / count;
 
                     let currentIndex = 0;
@@ -856,10 +791,9 @@
                     let rafId = null;
                     let huRotateTimer = null;
                     let cards = [];
-                    let heroVisible = true;
 
                     function initCards() {
-                        cards = finalVideos.map((video, i) => {
+                        cards = HU_VIDEOS.map((video, i) => {
                             const card = document.createElement('div');
                             card.className = 'hu-card';
                             card.dataset.index = i;
@@ -910,10 +844,7 @@
 
                             card.addEventListener('click', () => {
                                 if(card.classList.contains('is-front')) {
-                                    // Bloqueia a abertura do modal no celular (window.innerWidth <= 768)
-                                    if (window.innerWidth > 768) {
-                                        openVideoModal(video.src + '?autoplay=1');
-                                    }
+                                    openVideoModal(video.src + '?autoplay=1');
                                 } else {
                                     goTo(i);
                                     huRestartAutoRotate();
@@ -947,7 +878,7 @@
                             if (isFront !== wasFront) {
                                 el.classList.toggle('is-front', isFront);
                                 const vid = el.querySelector('video');
-                                if (vid && heroVisible) {
+                                if (vid) {
                                     if (isFront) {
                                         vid.play().catch(e => console.log("Autoplay bloqueado", e));
                                     } else {
@@ -1032,10 +963,8 @@
                     function huStartAutoRotate(){
                       huStartProgressBar();
                       huRotateTimer = setInterval(() => {
-                          if(heroVisible || window.innerWidth > 768){
-                            next();
-                            huStartProgressBar(); // Reinicia a barra na rotação automática
-                          }
+                          next();
+                          huStartProgressBar(); // Reinicia a barra na rotação automática
                       }, HU_ROTATE_MS);
                     }
 
@@ -1053,32 +982,6 @@
                     applyRing(currentAngle);
                     updateCardLooks(currentAngle);
                     huStartAutoRotate();
-
-                    // Stand-by Otimização: Pausa automático quando sai da tela no celular
-                    if ('IntersectionObserver' in window) {
-                        const heroObserver = new IntersectionObserver((entries) => {
-                            heroVisible = entries[0].isIntersecting;
-                            if (window.innerWidth <= 768) {
-                                if (!heroVisible) {
-                                    clearInterval(huRotateTimer);
-                                    cards.forEach(c => {
-                                        const vid = c.el.querySelector('video');
-                                        if (vid) vid.pause();
-                                    });
-                                } else {
-                                    huRestartAutoRotate();
-                                    cards.forEach(c => {
-                                        if (c.el.classList.contains('is-front')) {
-                                            const vid = c.el.querySelector('video');
-                                            if (vid) vid.play().catch(()=>{});
-                                        }
-                                    });
-                                }
-                            }
-                        }, { threshold: 0.05 });
-                        heroObserver.observe(swipeArea);
-                    }
-
                   })();
                   </script>
         </section>
@@ -1086,7 +989,7 @@
         <div class="section-divider section-divider-strong"></div>
 
         <!-- SEÇÃO: PRODUÇÃO COM IA (CARROSSEL CILÍNDRICO) -->
-        <section id="sec-cilindro" class="pt-20 pb-12 relative overflow-hidden reveal-blur">
+        <section class="pt-20 pb-12 relative overflow-hidden reveal-blur">
             <div class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 blur-[150px] rounded-full pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-6 relative z-10 text-center mb-6 md:mb-16">
@@ -1119,7 +1022,7 @@
             </div>
         </section>
 
-        <div id="sec-cilindro-divider" class="section-divider section-divider-strong"></div>
+        <div class="section-divider section-divider-strong"></div>
 
         <!-- SEÇÃO 2: TÍTULO + VÍDEO -->
         <section class="relative min-h-[75vh] flex items-center pt-[40px] pb-[40px] overflow-hidden">
