@@ -22,6 +22,11 @@
             try {
                 if (localStorage.getItem('crieiti-theme') === 'light') document.documentElement.classList.add('theme-light');
             } catch (e) {}
+            // MODO LEVE: ativado SOMENTE em telas de celular
+            var isPhone = window.matchMedia('(max-width: 768px)').matches ||
+                (window.matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 500);
+            window.CRIEITI_MOBILE_LITE = isPhone;
+            if (isPhone) document.documentElement.classList.add('m-lite');
         })();
     </script>
 
@@ -984,6 +989,11 @@
                     const count = HU_VIDEOS.length;
                     const step = 360 / count;
 
+                    // MODO LEVE (celular): no máximo 3 vídeos carregados (atual + vizinhos), só 1 tocando
+                    const HU_LITE = !!window.CRIEITI_MOBILE_LITE;
+                    let huSectionActive = !HU_LITE; // no celular, quem ativa é o gerenciador de seções
+                    let huModalOpen = false;
+
                     let currentIndex = 0;
                     let currentAngle = 0;
                     let animating = false;
@@ -1007,16 +1017,21 @@
                             mediaWrap.className = 'hu-media-wrap';
                             
                             const videoEl = document.createElement('video');
-                            videoEl.src = video.src;
+                            if (HU_LITE) {
+                                videoEl.dataset.src = video.src; // carregado sob demanda
+                                videoEl.preload = 'none';
+                            } else {
+                                videoEl.src = video.src;
+                                videoEl.autoplay = true;
+                            }
                             videoEl.muted = true;
                             videoEl.setAttribute('muted', '');
-                            videoEl.autoplay = true;
                             videoEl.loop = true;
                             videoEl.playsInline = true;
                             videoEl.setAttribute('playsinline', '');
                             
-                            // Buffer Inteligente de 1 segundo
-                            videoEl.addEventListener('loadeddata', () => {
+                            // Buffer Inteligente de 1 segundo (desktop)
+                            if (!HU_LITE) videoEl.addEventListener('loadeddata', () => {
                                 let playPromise = videoEl.play();
                                 if (playPromise !== undefined) {
                                     playPromise.then(() => {
@@ -1043,6 +1058,7 @@
 
                             card.addEventListener('click', () => {
                                 if(card.classList.contains('is-front')) {
+                                    if (HU_LITE) huBeforeModal();
                                     openVideoModal(video.src + '?autoplay=1');
                                 } else {
                                     goTo(i);
@@ -1070,7 +1086,7 @@
                             const isFront = dist < 0.05; 
 
                             el.style.opacity = String(1 - dist * 0.75);
-                            el.style.filter = `brightness(${1 - dist * 0.7}) saturate(${1 - dist * 0.4})`;
+                            if (!HU_LITE) el.style.filter = `brightness(${1 - dist * 0.7}) saturate(${1 - dist * 0.4})`;
                             
                             const wasFront = el.classList.contains('is-front');
                             
@@ -1079,7 +1095,7 @@
                                 const vid = el.querySelector('video');
                                 if (vid) {
                                     if (isFront) {
-                                        vid.play().catch(e => console.log("Autoplay bloqueado", e));
+                                        if (!HU_LITE || (huSectionActive && !huModalOpen)) vid.play().catch(e => console.log("Autoplay bloqueado", e));
                                     } else {
                                         vid.pause();
                                     }
@@ -1107,7 +1123,62 @@
                         rafId = requestAnimationFrame(frame);
                     }
 
+                    // ---- Funções do modo leve (celular) ----
+                    function huUnload(v) {
+                        if (!v.getAttribute('src')) return;
+                        v.pause(); v.removeAttribute('src'); v.load();
+                    }
+                    function huManageSources() {
+                        if (!HU_LITE) return;
+                        cards.forEach(({ el }, i) => {
+                            const v = el.querySelector('video');
+                            let d = Math.abs(i - currentIndex); d = Math.min(d, count - d);
+                            if (d <= 1) {
+                                if (!v.getAttribute('src')) {
+                                    v.preload = d === 0 ? 'auto' : 'metadata';
+                                    v.src = v.dataset.src + '#t=0.1'; // mostra o 1º quadro
+                                }
+                            } else {
+                                huUnload(v);
+                            }
+                        });
+                    }
+                    function huPlayFront() {
+                        cards.forEach(({ el }, i) => {
+                            const v = el.querySelector('video');
+                            if (i === currentIndex && huSectionActive && !huModalOpen) v.play().catch(() => {});
+                            else v.pause();
+                        });
+                    }
+                    function huBeforeModal() {
+                        huModalOpen = true;
+                        clearInterval(huRotateTimer);
+                        // libera memória: descarrega os vídeos do carrossel enquanto o vídeo grande toca
+                        cards.forEach(({ el }) => huUnload(el.querySelector('video')));
+                    }
+                    window.huOnModalClose = function () {
+                        if (!HU_LITE || !huModalOpen) return;
+                        huModalOpen = false;
+                        huManageSources();
+                        huPlayFront();
+                        if (huSectionActive) huRestartAutoRotate();
+                    };
+                    window.huSetActive = function (active) {
+                        if (!HU_LITE) return;
+                        if (active === huSectionActive) return;
+                        huSectionActive = active;
+                        if (active) {
+                            huManageSources();
+                            huPlayFront();
+                            huRestartAutoRotate();
+                        } else {
+                            clearInterval(huRotateTimer);
+                            cards.forEach(({ el }) => el.querySelector('video').pause());
+                        }
+                    };
+
                     function render(fromAngle, toAngle) {
+                        if (HU_LITE) huManageSources();
                         animating = true;
                         applyRing(toAngle);
                         animateLooks(fromAngle, toAngle);
@@ -1170,6 +1241,7 @@
 
                     function huRestartAutoRotate(){
                       clearInterval(huRotateTimer);
+                      if (HU_LITE && (!huSectionActive || huModalOpen)) return; // celular: gira só com a seção ativa
                       huStartAutoRotate();
                     }
 
@@ -1179,9 +1251,10 @@
                     };
 
                     initCards();
+                    if (HU_LITE) huManageSources();
                     applyRing(currentAngle);
                     updateCardLooks(currentAngle);
-                    huStartAutoRotate();
+                    if (!HU_LITE) huStartAutoRotate();
                   })();
                   </script>
         </section>
@@ -2032,7 +2105,15 @@
         } else {
             youtubePlayer.classList.add('hidden');
             localPlayer.classList.remove('hidden');
-            localPlayer.src = videoSrc;
+            if (window.CRIEITI_MOBILE_LITE) {
+                // celular: pausa tudo por trás e carrega o arquivo limpo (sem "?autoplay=1")
+                document.documentElement.classList.add('m-modal-open');
+                document.querySelectorAll('video').forEach(v => { if (v !== localPlayer) v.pause(); });
+                localPlayer.preload = 'auto';
+                localPlayer.src = videoSrc.split('?')[0];
+            } else {
+                localPlayer.src = videoSrc;
+            }
             
             if (videoSrc.includes('autoplay=1')) {
                 localPlayer.play().catch(e => console.log("Autoplay bloqueado"));
@@ -2062,12 +2143,20 @@
             modal.classList.remove('flex');
             modal.classList.add('hidden');
             localPlayer.pause();
-            localPlayer.src = '';
+            if (window.CRIEITI_MOBILE_LITE) {
+                localPlayer.removeAttribute('src'); localPlayer.load(); // libera memória no celular
+                document.documentElement.classList.remove('m-modal-open');
+                if (window.huOnModalClose) window.huOnModalClose();
+                if (window.crieitiMobileActivate) window.crieitiMobileActivate();
+            } else {
+                localPlayer.src = '';
+            }
             youtubePlayer.src = '';
         }, 300);
     }
 
     function initStarField() {
+        if (window.CRIEITI_MOBILE_LITE) return; // celular: estrelas em stand-by (não são criadas)
         const starField = document.getElementById('star-field');
         if (starField) {
             for (let i = 0; i < 150; i++) {
@@ -2143,6 +2232,7 @@
 
     // ESTRELAS INTERMITENTES DA SEÇÃO "VISÃO DE MÉTODO"
     function initMetodologiaTwinkle() {
+        if (window.CRIEITI_MOBILE_LITE) return; // celular: estrelas em stand-by (não são criadas)
         const layer = document.getElementById('mt-twinkle-layer');
         if (!layer || layer.childElementCount) return;
         const total = window.innerWidth < 768 ? 35 : 70;
@@ -2717,6 +2807,148 @@
         setTimeout(() => root.classList.remove('theme-switching'), 500);
     }
     crieitiUpdateThemeButton();
+</script>
+
+<!-- ================= MODO LEVE PARA CELULAR ================= -->
+<style id="modo-leve-celular">
+    /* Durante o scroll, em seções fora de foco ou com o vídeo grande aberto: efeitos pausados */
+    html.m-lite.m-scrolling *, html.m-lite.m-scrolling *::before, html.m-lite.m-scrolling *::after,
+    html.m-lite .m-section-idle *, html.m-lite .m-section-idle *::before, html.m-lite .m-section-idle *::after,
+    html.m-lite.m-modal-open main *, html.m-lite.m-modal-open main *::before, html.m-lite.m-modal-open main *::after {
+        animation-play-state: paused !important;
+    }
+    /* Efeitos reduzidos enquanto rola a tela */
+    html.m-lite.m-scrolling #mt-twinkle-layer { opacity: 0.35; }
+    html.m-lite.m-scrolling .m-cr-galaxy-viewport { opacity: 0.5; }
+    /* Modal de vídeo sem desfoque pesado */
+    html.m-lite #video-modal { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+    /* Showcase UGC mais leve */
+    html.m-lite #hero-ugc-widget .hu-card { will-change: transform, opacity; }
+    html.m-lite #hero-ugc-widget .hu-live { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    html.m-lite #hero-ugc-widget .hu-card-inner { box-shadow: 0 10px 24px -10px rgba(0,0,0,0.6) !important; }
+
+    /* ===== CELULAR: EFEITOS DE ESTRELAS, BRILHO E NEON EM STAND-BY ===== */
+    /* Estrelas, galáxia, cometas, partículas, grades e linhas neon: não aparecem */
+    html.m-lite #mt-twinkle-layer,
+    html.m-lite .m-cr-galaxy-viewport,
+    html.m-lite .m-cr-star,
+    html.m-lite .qs-particle,
+    html.m-lite .qs-grid-3d,
+    html.m-lite .qs-neon-line,
+    html.m-lite .qs-neon-line-v,
+    html.m-lite .th-bglines,
+    html.m-lite .shine-bar,
+    html.m-lite .animate-bar-sweep,
+    html.m-lite [class*="animate-[spin"],
+    html.m-lite .animate-spin-slow,
+    html.m-lite .animate-pulse-slow,
+    html.m-lite .blur-xl, html.m-lite .blur-2xl, html.m-lite .blur-3xl,
+    html.m-lite [class*="blur-["],
+    html.m-lite #brand-strategy::before,
+    html.m-lite .cp-neon-top::after { display: none !important; }
+
+    /* Animações decorativas desligadas (o carrossel do portfólio continua funcionando) */
+    html.m-lite *:not(.cr-track), html.m-lite *::before, html.m-lite *::after { animation: none !important; }
+
+    /* Brilhos / neon: sem sombras luminosas nem texto brilhante */
+    html.m-lite [class*="shadow-[0_0"],
+    html.m-lite .neon-glow-green, html.m-lite .neon-glow-red, html.m-lite .neon-glow-blue,
+    html.m-lite .section-divider, html.m-lite .section-divider-strong,
+    html.m-lite .wa-float-btn, html.m-lite #cp-send-btn, html.m-lite .cp-wa-icon,
+    html.m-lite .cyl-nav-btn, html.m-lite .cyl-dot.active,
+    html.m-lite .theme-toggle-btn:hover,
+    html.m-lite .dir-card, html.m-lite .dir-card:hover,
+    html.m-lite .qs-card-3d, html.m-lite .qs-card-3d:hover { box-shadow: none !important; }
+    html.m-lite .nav-neon-link::after, html.m-lite .nav-neon-portfolio::after { box-shadow: none !important; }
+    html.m-lite .section-divider::before { display: none !important; }
+    html.m-lite .qs-title-3d { text-shadow: none !important; }
+    html.m-lite .dir-card::before, html.m-lite .qs-card-3d::before, html.m-lite .neon-border-card::before { display: none !important; }
+    html.m-lite .cyl-card { -webkit-box-reflect: unset !important; box-shadow: 0 8px 20px rgba(0,0,0,0.35) !important; }
+    html.m-lite #hero-ugc-widget .hu-card.is-front .hu-card-inner { box-shadow: 0 10px 24px -10px rgba(0,0,0,0.6) !important; }
+    html.m-lite #hero-ugc-widget .hu-live span { box-shadow: none !important; }
+    html.m-lite .site-noise { display: none !important; }
+</style>
+<script>
+    // Somente celular: seção em foco fica ativa 2s após parar o scroll; as outras ficam pausadas
+    (function () {
+        if (!window.CRIEITI_MOBILE_LITE) return;
+        const root = document.documentElement;
+        const DELAY = 2000;
+        let timer = null, scrolling = false;
+
+        function allSections() { return Array.from(document.querySelectorAll('section')); }
+        function visibleSections() {
+            const page = document.querySelector('.page-view.active') || document;
+            return Array.from(page.querySelectorAll('section'));
+        }
+        function pauseAllVideos() {
+            document.querySelectorAll('video').forEach(v => { if (v.id !== 'modal-video-player') v.pause(); });
+            if (window.huSetActive) window.huSetActive(false);
+        }
+        function pickActive() {
+            const mid = window.innerHeight / 2;
+            let best = null, bestDist = Infinity;
+            visibleSections().forEach(s => {
+                const r = s.getBoundingClientRect();
+                if (!r.height) return;
+                const d = (r.top <= mid && r.bottom >= mid) ? 0 : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid));
+                if (d < bestDist) { bestDist = d; best = s; }
+            });
+            return best;
+        }
+        function activate() {
+            if (root.classList.contains('m-modal-open')) return;
+            const act = pickActive();
+            allSections().forEach(s => {
+                const on = s === act;
+                s.classList.toggle('m-section-active', on);
+                s.classList.toggle('m-section-idle', !on);
+                s.querySelectorAll('video').forEach(v => {
+                    if (v.closest('#hero-ugc-widget')) return; // controlado pelo próprio carrossel
+                    if (on && v.hasAttribute('autoplay')) {
+                        if (v.preload !== 'auto') v.preload = 'auto';
+                        v.play().catch(() => {});
+                    } else {
+                        v.pause();
+                    }
+                });
+            });
+            if (window.huSetActive) window.huSetActive(!!(act && act.querySelector('#hero-ugc-widget')));
+        }
+        function onScroll() {
+            if (!scrolling) {
+                scrolling = true;
+                root.classList.add('m-scrolling');
+                pauseAllVideos();
+            }
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                scrolling = false;
+                root.classList.remove('m-scrolling');
+                activate();
+            }, DELAY);
+        }
+
+        // Vídeos com autoplay fora da seção inicial não carregam até serem necessários
+        document.querySelectorAll('video[autoplay]').forEach(v => { v.preload = 'metadata'; });
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.crieitiMobileActivate = activate;
+
+        // Ao trocar de página interna, reavalia a seção ativa
+        if (typeof window.showPage === 'function') {
+            const originalShowPage = window.showPage;
+            window.showPage = function () {
+                const r = originalShowPage.apply(this, arguments);
+                setTimeout(activate, 700);
+                return r;
+            };
+        }
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) pauseAllVideos(); else activate();
+        });
+        activate();
+    })();
 </script>
 </body>
 </html>
