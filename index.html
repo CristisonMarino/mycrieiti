@@ -991,7 +991,7 @@
 
                     // MODO LEVE (celular): no máximo 3 vídeos carregados (atual + vizinhos), só 1 tocando
                     const HU_LITE = !!window.CRIEITI_MOBILE_LITE;
-                    let huSectionActive = !HU_LITE; // no celular, quem ativa é o gerenciador de seções
+                    let huSectionActive = true; // carrossel sempre rodando (no celular, só o vídeo da frente toca)
                     let huModalOpen = false;
 
                     let currentIndex = 0;
@@ -1254,7 +1254,7 @@
                     if (HU_LITE) huManageSources();
                     applyRing(currentAngle);
                     updateCardLooks(currentAngle);
-                    if (!HU_LITE) huStartAutoRotate();
+                    huStartAutoRotate();
                   })();
                   </script>
         </section>
@@ -2124,6 +2124,9 @@
         
         modal.classList.remove('hidden');
         modal.classList.add('flex');
+        if (window.CRIEITI_MOBILE_LITE && !window.__crModalHist) {
+            try { history.pushState({ crieitiModal: true }, ''); window.__crModalHist = true; } catch (e) {}
+        }
         
         setTimeout(() => {
             modal.classList.remove('opacity-0');
@@ -2132,6 +2135,10 @@
     }
 
     function closeVideoModal() {
+        if (window.CRIEITI_MOBILE_LITE && window.__crModalHist) {
+            window.__crModalHist = false;
+            try { history.back(); } catch (e) {}
+        }
         const modal = document.getElementById('video-modal');
         const localPlayer = document.getElementById('modal-video-player');
         const youtubePlayer = document.getElementById('modal-youtube-player');
@@ -2147,7 +2154,7 @@
                 localPlayer.removeAttribute('src'); localPlayer.load(); // libera memória no celular
                 document.documentElement.classList.remove('m-modal-open');
                 if (window.huOnModalClose) window.huOnModalClose();
-                if (window.crieitiMobileActivate) window.crieitiMobileActivate();
+                if (window.crieitiMobileResume) window.crieitiMobileResume();
             } else {
                 localPlayer.src = '';
             }
@@ -2811,17 +2818,15 @@
 
 <!-- ================= MODO LEVE PARA CELULAR ================= -->
 <style id="modo-leve-celular">
-    /* Durante o scroll, em seções fora de foco ou com o vídeo grande aberto: efeitos pausados */
-    html.m-lite.m-scrolling *, html.m-lite.m-scrolling *::before, html.m-lite.m-scrolling *::after,
-    html.m-lite .m-section-idle *, html.m-lite .m-section-idle *::before, html.m-lite .m-section-idle *::after,
+    /* Com o vídeo em tela cheia aberto, tudo por trás fica parado */
     html.m-lite.m-modal-open main *, html.m-lite.m-modal-open main *::before, html.m-lite.m-modal-open main *::after {
         animation-play-state: paused !important;
     }
-    /* Efeitos reduzidos enquanto rola a tela */
-    html.m-lite.m-scrolling #mt-twinkle-layer { opacity: 0.35; }
-    html.m-lite.m-scrolling .m-cr-galaxy-viewport { opacity: 0.5; }
     /* Modal de vídeo sem desfoque pesado */
     html.m-lite #video-modal { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+    /* Sem desfoque de vidro no celular (pesado para a GPU) */
+    html.m-lite .home-float-btn, html.m-lite #contato-popup, html.m-lite #mobile-menu,
+    html.m-lite #hero-ugc-widget .hu-nav-btn, html.m-lite .cyl-nav-btn { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
     /* Showcase UGC mais leve */
     html.m-lite #hero-ugc-widget .hu-card { will-change: transform, opacity; }
     html.m-lite #hero-ugc-widget .hu-live { backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -2869,85 +2874,57 @@
     html.m-lite .site-noise { display: none !important; }
 </style>
 <script>
-    // Somente celular: seção em foco fica ativa 2s após parar o scroll; as outras ficam pausadas
+    // SOMENTE CELULAR: autoplay apenas no vídeo da 1ª seção + carrossel "Criativos Que Vendem Mais"
     (function () {
         if (!window.CRIEITI_MOBILE_LITE) return;
-        const root = document.documentElement;
-        const DELAY = 2000;
-        let timer = null, scrolling = false;
+        const brandVideo = document.getElementById('brand-strategy-video');
 
-        function allSections() { return Array.from(document.querySelectorAll('section')); }
-        function visibleSections() {
-            const page = document.querySelector('.page-view.active') || document;
-            return Array.from(page.querySelectorAll('section'));
-        }
-        function pauseAllVideos() {
-            document.querySelectorAll('video').forEach(v => { if (v.id !== 'modal-video-player') v.pause(); });
-            if (window.huSetActive) window.huSetActive(false);
-        }
-        function pickActive() {
-            const mid = window.innerHeight / 2;
-            let best = null, bestDist = Infinity;
-            visibleSections().forEach(s => {
-                const r = s.getBoundingClientRect();
-                if (!r.height) return;
-                const d = (r.top <= mid && r.bottom >= mid) ? 0 : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid));
-                if (d < bestDist) { bestDist = d; best = s; }
-            });
-            return best;
-        }
-        function activate() {
-            if (root.classList.contains('m-modal-open')) return;
-            const act = pickActive();
-            allSections().forEach(s => {
-                const on = s === act;
-                s.classList.toggle('m-section-active', on);
-                s.classList.toggle('m-section-idle', !on);
-                s.querySelectorAll('video').forEach(v => {
-                    if (v.closest('#hero-ugc-widget')) return; // controlado pelo próprio carrossel
-                    if (on && v.hasAttribute('autoplay')) {
-                        if (v.preload !== 'auto') v.preload = 'auto';
-                        v.play().catch(() => {});
-                    } else {
-                        v.pause();
-                    }
-                });
-            });
-            if (window.huSetActive) window.huSetActive(!!(act && act.querySelector('#hero-ugc-widget')));
-        }
-        function onScroll() {
-            if (!scrolling) {
-                scrolling = true;
-                root.classList.add('m-scrolling');
-                pauseAllVideos();
+        // Demais vídeos com autoplay: no celular não tocam sozinhos (tocam ao tocar na tela)
+        document.querySelectorAll('video[autoplay]').forEach(v => {
+            if (v === brandVideo) return;
+            v.removeAttribute('autoplay');
+            v.autoplay = false;
+            v.pause();
+            v.preload = 'metadata';
+            v.controls = true;
+            const source = v.querySelector('source');
+            if (source && source.getAttribute('src') && !source.getAttribute('src').includes('#t=')) {
+                source.setAttribute('src', source.getAttribute('src') + '#t=0.1'); // mostra o 1º quadro
+                v.load();
             }
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                scrolling = false;
-                root.classList.remove('m-scrolling');
-                activate();
-            }, DELAY);
-        }
-
-        // Vídeos com autoplay fora da seção inicial não carregam até serem necessários
-        document.querySelectorAll('video[autoplay]').forEach(v => { v.preload = 'metadata'; });
-
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.crieitiMobileActivate = activate;
-
-        // Ao trocar de página interna, reavalia a seção ativa
-        if (typeof window.showPage === 'function') {
-            const originalShowPage = window.showPage;
-            window.showPage = function () {
-                const r = originalShowPage.apply(this, arguments);
-                setTimeout(activate, 700);
-                return r;
-            };
-        }
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) pauseAllVideos(); else activate();
         });
-        activate();
+
+        function playBrand() {
+            if (!brandVideo || document.hidden || document.documentElement.classList.contains('m-modal-open')) return;
+            brandVideo.muted = true;
+            brandVideo.play().catch(() => {});
+        }
+
+        // Volta a tocar depois de fechar o vídeo em tela cheia
+        window.crieitiMobileResume = function () { playBrand(); };
+
+        // Botão "voltar" do celular com o vídeo aberto: fecha o vídeo e continua no site
+        window.addEventListener('popstate', () => {
+            if (window.__crModalHist) {
+                window.__crModalHist = false;
+                closeVideoModal();
+            }
+        });
+
+        // Alguns celulares (modo economia) só liberam autoplay após o primeiro toque
+        document.addEventListener('touchstart', playBrand, { once: true, passive: true });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                document.querySelectorAll('video').forEach(v => { if (v.id !== 'modal-video-player') v.pause(); });
+            } else {
+                playBrand();
+                const front = document.querySelector('#hero-ugc-widget .hu-card.is-front video');
+                if (front && front.getAttribute('src') && !document.documentElement.classList.contains('m-modal-open')) front.play().catch(() => {});
+            }
+        });
+
+        playBrand();
     })();
 </script>
 </body>
